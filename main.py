@@ -25,27 +25,6 @@ def criarMosaico(ret1, ret2):
     xSe, ySe, xId, yId = ret1 # Posicoes do retangulo 1
     xSe2, ySe2, xId2, yId2 = ret2 # Posicoes do retangulo 2
     retorno = []
-    
-    menorXSe, maiorXid = 0, 0
-    maiorYSe, menorYid = 0, 0
-    
-    if xSe < xSe2:
-        menorXSe = xSe
-    else:
-        menorXSe = xSe2
-    if xId < xId2:
-        maiorXid = xId2
-    else:
-        maiorXid = xId
-        
-    if ySe > ySe2:
-        maiorYSe = ySe
-    else:
-        maiorYSe = ySe2
-    if yId < yId2:
-        menorYid = yId
-    else:
-        menorYid = yId2
 
     intervaloX = False
     intervaloY = False
@@ -57,6 +36,28 @@ def criarMosaico(ret1, ret2):
         intervaloY = True
         
     if intervaloX and intervaloY:
+        # Pega os valores correspondentes as posicoes do retangulo resultante
+        menorXSe, maiorXid = 0, 0
+        maiorYSe, menorYid = 0, 0
+        
+        if xSe < xSe2:
+            menorXSe = xSe
+        else:
+            menorXSe = xSe2
+        if xId < xId2:
+            maiorXid = xId2
+        else:
+            maiorXid = xId
+            
+        if ySe > ySe2:
+            maiorYSe = ySe
+        else:
+            maiorYSe = ySe2
+        if yId < yId2:
+            menorYid = yId
+        else:
+            menorYid = yId2
+                
         retorno.append([menorXSe, maiorYSe, maiorXid, menorYid])
     else:
         retorno.append(ret1)
