@@ -1,0 +1,10 @@
+Para executar esse programa é necessário utlizar um terminal de comandos e executar o seguinte comando:
+
+py main.py caminho
+
+"Caminho" deve ser substituido pelo caminho para o arquivo quem contém os valores de teste, representando,
+em cada linha, as coordenadas dos retangulos, no seguinte formato:
+
+xSuperiorEsquerdo ySuperiorEsquerdo xInferiorDireito yInferiorDireito
+
+O arquivo deve ser no formato .txt
