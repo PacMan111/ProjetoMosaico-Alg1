@@ -70,28 +70,40 @@ caminho = sys.argv[1] # Pega o caminho para o arquivo de teste
 # Armazena os retangulos de teste
 retangulosIniciais = lerArquivo(caminho)
 
-# Calcula o resultado da combinacao dos dois primeiros triangulos
-retangulosResultantes = criarMosaico(retangulosIniciais[0], retangulosIniciais[1])
-    
-# Para cada triangulo alem dos dois primeiros, compara com os resultados anteriores
-for i in range(2, len(retangulosIniciais)):
-    
-    # Compara com cada um dos resultados anteriores
-    for ret in retangulosResultantes:
-        rets = criarMosaico(ret, retangulosIniciais[i])
-        
-        #Se o resultado anterior estiver no novo resultado, remove ele
-        if ret in rets:
-            rets.remove(ret)
-        else:
-            # Se nao, remove o resultado anterior dos retangulos resultantes, ja que ele nao é mais verdadeiro
-            retangulosResultantes.remove(ret) 
+def calcular(iniciais):
+    # Calcula o resultado da combinacao dos dois primeiros triangulos
+
+    if len(iniciais) > 1:
+        resultado = criarMosaico(iniciais[0], iniciais[1])
+
+        # Para cada triangulo alem dos dois primeiros, compara com os resultados anteriores
+        for i in range(2, len(iniciais)):
             
-    # Adiciona os novos resultados
-    for r in rets:
-        retangulosResultantes.append(r)
-        
-print(len(retangulosResultantes))
-        
-for ret in retangulosResultantes:
-    printarRetangulo(ret)
+            # Compara com cada um dos resultados anteriores
+            for ret in resultado:
+                comparacao = criarMosaico(ret, iniciais[i])
+                
+                #Se o resultado anterior estiver no novo resultado, remove ele
+                if ret in comparacao:
+                    comparacao.remove(ret)
+                else:
+                    # Se nao, remove o resultado anterior dos retangulos resultantes, ja que ele nao é mais verdadeiro
+                    resultado.remove(ret) 
+                    
+            # Adiciona os novos resultados
+            for r in comparacao:
+                    resultado.append(r)
+    else:
+        resultado = iniciais
+
+    return resultado
+
+resultadoAnterior = []
+resultadoFinal = calcular(retangulosIniciais)
+
+while resultadoAnterior != resultadoFinal:
+    resultadoAnterior = resultadoFinal
+    resultadoFinal = calcular(resultadoAnterior)
+
+for r in resultadoFinal:
+    printarRetangulo(r)
