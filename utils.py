@@ -18,7 +18,6 @@ def lerArquivo(caminho):
 def criarMosaico(ret1, ret2):
     xSe, ySe, xId, yId = ret1 # Posicoes do retangulo 1
     xSe2, ySe2, xId2, yId2 = ret2 # Posicoes do retangulo 2
-    retorno = []
 
     intervaloX = False
     intervaloY = False
@@ -52,17 +51,14 @@ def criarMosaico(ret1, ret2):
         else:
             menorYid = yId2
                 
-        retorno.append([menorXSe, maiorYSe, maiorXid, menorYid])
+        return [[menorXSe, maiorYSe, maiorXid, menorYid]]
     else:
-        retorno.append(ret1)
-        retorno.append(ret2)
-        
-    return retorno
+        return [ret1, ret2]
 
 def calcular(iniciais):
-    # Calcula o resultado da combinacao dos dois primeiros triangulos
 
     if len(iniciais) > 1:
+        # Calcula o resultado da combinacao dos dois primeiros triangulos
         resultado = criarMosaico(iniciais[0], iniciais[1])
 
         # Para cada triangulo alem dos dois primeiros, compara com os resultados anteriores
@@ -71,17 +67,15 @@ def calcular(iniciais):
             # Compara com cada um dos resultados anteriores
             for ret in resultado:
                 comparacao = criarMosaico(ret, iniciais[i])
-                
-                #Se o resultado anterior estiver no novo resultado, remove ele
-                if ret in comparacao:
-                    comparacao.remove(ret)
-                else:
-                    # Se nao, remove o resultado anterior dos retangulos resultantes, ja que ele nao é mais verdadeiro
+               
+                # Se o resultado anterior não estiver na comparacao, remove ele dos retangulos resultantes
+                if ret not in comparacao:
                     resultado.remove(ret) 
-                    
-            # Adiciona os novos resultados
-            for r in comparacao:
-                    resultado.append(r)
+
+                # Adiciona os novos resultados
+                for r in comparacao:
+                    if r not in resultado:
+                        resultado.append(r)
     else:
         resultado = iniciais
 
