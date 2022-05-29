@@ -1,3 +1,7 @@
+Antes de executar o programa, é necessário instalar a biblioteca pygame, utilizando o seguinte comando:
+
+py -m pip install -U pygame --user
+
 Para executar esse programa é necessário utlizar um terminal de comandos e executar o seguinte comando:
 
 py main.py caminho
