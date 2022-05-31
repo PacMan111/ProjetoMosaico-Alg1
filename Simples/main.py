@@ -13,4 +13,4 @@ with open(caminho, 'r') as file:
         xidF = max(xidF, xid)
         yidF = min(yidF, yid)
 
-print(f"Ret: {xseF}, {yseF}, {xidF}, {yidF}")
+print(f"({xseF},{yseF}), ({xidF}, {yidF})")
