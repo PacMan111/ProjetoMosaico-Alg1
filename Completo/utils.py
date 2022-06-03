@@ -1,4 +1,5 @@
 import sys 
+import pygame
 
 # Printar o retangulo formatado
 def printFormatado(ret):
@@ -123,8 +124,7 @@ def definirEscala(resultados):
 
 #Função para desenhar os resultados na tela
 def desenharResultados(resultados):
-
-    import pygame
+    
     size = 1080, 720
 
     escala = definirEscala(resultados)
