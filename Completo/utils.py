@@ -53,7 +53,7 @@ def gerarMosaicos(retangulos):
         resultado = compararRetangulos(retangulos[0], retangulos[1])
 
         #Varivel de contagem pro loop
-        count = 2
+        count = 0
         countAnterior = count
 
         # Faz um loop por todos os retangulos
@@ -62,6 +62,11 @@ def gerarMosaicos(retangulos):
             #Faz um loop por todos os resultados
             for res in resultado:
 
+                # print()
+                # print("Count: ", count)
+                # print("Rets: ", retangulos)
+                # print("Resultados: ", resultado)
+                
                 #Faz a comparacao entre o resultado e o retangulo
                 comparacao = compararRetangulos(res, retangulos[count])
 
@@ -73,6 +78,11 @@ def gerarMosaicos(retangulos):
                 # Se o retangulo da lista de resultados não estiver na comparacao, remove ele dos retangulos resultantes
                 if res not in comparacao:
                     resultado.remove(res) 
+
+                # print("retangulo: ", retangulos[count])
+                # print("resultante: ", res)
+                # print("Comparacao: ", comparacao)
+                # print()
 
                 # Se o retangulo da lista de retangulos não estiver na comparação, remove ele da lista de retangulos
                 # Os ifs são separados pois não é só porque um não está que o outro está errado, ja que um pode estar dentro do outro
@@ -96,21 +106,38 @@ def calcular(caminho):
     resultadoAnterior = []
     resultadoFinal = gerarMosaicos(lerArquivo(caminho))
 
-    #Repete o calculo até que o novo resultado seja igual ao anterior
+    # Repete o calculo até que o novo resultado seja igual ao anterior,
+    # para garantir que o resultado não possua retangulos com sobreposição
     while resultadoAnterior != resultadoFinal:
         resultadoAnterior = resultadoFinal
         resultadoFinal = gerarMosaicos(resultadoAnterior)
 
     return resultadoFinal
 
+def definirEscala(resultados):
+    escala = 1
+    if len(resultados) > 1:
+        maiorLargura = max([(xid - xse) for xse, _, xid, _ in resultados])
+        maiorAltura = max([(yse - yid) for _, yse, _, yid in resultados])
+
+        escala = (720 / max(maiorAltura, maiorLargura)) / 5
+
+    escala = 1 if (escala<1) else escala
+
+    print(escala)
+
+    return escala
+
 def desenharResultados(resultados):
     size = width, height = 1080, 720
+
+    escala = definirEscala(resultados)
 
     screen = pygame.display.set_mode(size)
     screen.fill((255, 255, 255))
 
     for res in resultados:
-        xse, yse, xid, yid = res
+        xse, yse, xid, yid = [v*escala for v in res]
         largura = xid - xse
         altura = yse - yid
 
