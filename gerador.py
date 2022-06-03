@@ -8,7 +8,8 @@
         Uso: python gerador.py <base> <altura> <qtd_areas>
 Programador: Amaury Antônio de Castro Junior
        Data: 29/5/2022.
-'''
+''' 
+  
 
 # Módulos usados para gerar números aleatórios e permitir a passagem de
 # parâmtros por linha de comando.
@@ -43,7 +44,6 @@ while areas_validas < num_areas:
     # Verifica se as coordenadas geradas são válidas, de acordo com os
     # critérios de entrada definidos para o projeto.
     if (x_se < x_id and y_se > y_id):
-
         # Se forem válidas, imprime as coordenadas e incrementa o contador
         # de áreas válidas
         print("%i %i %i %i"%(x_se,y_se,x_id,y_id))
