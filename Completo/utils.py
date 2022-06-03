@@ -1,4 +1,3 @@
-import pygame
 import sys 
 
 # Printar o retangulo formatado
@@ -109,10 +108,10 @@ def calcular(caminho):
 
     return resultadoFinal
 
+#Função para definir a escala dos retangulos desenhados, para evitar que fiquem muito pequenos e dificulte a observação
 def definirEscala(resultados):
     maiorLargura = max([(xid - xse) for xse, _, xid, _ in resultados])
     maiorAltura = max([(yse - yid) for _, yse, _, yid in resultados])
-
 
     escala = (1080 / maiorLargura + 720 / maiorAltura) / 10
 
@@ -122,12 +121,16 @@ def definirEscala(resultados):
 
     return escala
 
+#Função para desenhar os resultados na tela
 def desenharResultados(resultados):
+
+    import pygame
     size = 1080, 720
 
     escala = definirEscala(resultados)
 
     screen = pygame.display.set_mode(size)
+    pygame.display.set_caption('Projeto Mosaicos')
     screen.fill((255, 255, 255))
 
     for res in resultados:

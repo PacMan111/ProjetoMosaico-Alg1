@@ -2,7 +2,7 @@
    Programa: mosaico.py
         Função: Gerar um mosaico a partir de coordenadas de retângulos fornecidas.
 
-        Uso: python moaico.py <caminho para o arquivo de teste> <opcao de desenhar o resultado>
+        Uso: python mosaico.py <caminho para o arquivo de teste> <opcao de desenhar o resultado>
 
                 Na parte da opção de desenhar o resultado, inserir "True" ou "true" para desenhar
                 ou deixar em branco para não desenhar.

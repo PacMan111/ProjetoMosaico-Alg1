@@ -1,14 +1,11 @@
-Antes de executar o programa, é necessário instalar a biblioteca pygame, utilizando o seguinte comando:
-
-py -m pip install -U pygame --user
-
-Para executar esse programa é necessário utlizar um terminal de comandos e executar o seguinte comando:
-
-py main.py caminho
-
-"Caminho" deve ser substituido pelo caminho para o arquivo quem contém os valores de teste, representando,
-em cada linha, as coordenadas dos retangulos, no seguinte formato:
+Antes de executar o programa, primeiramente é necessário criar um arquivo de teste (nomeie como preferir) 
+no formato .txt no mesmo diretório do programa, contendo as coordenadas dos retangulos a serem 
+mosaicados na seguinte forma, um em cada linha:
 
 xSuperiorEsquerdo ySuperiorEsquerdo xInferiorDireito yInferiorDireito
 
-O arquivo deve ser no formato .txt
+Após criar o arquivo, para executar o programa, execute o seguinte comando na linha de comando:
+
+python mosaico.py <caminho>
+
+Substituindo <caminho> pelo caminho do sistema para o arquivo de teste criado anteriormente
