@@ -52,23 +52,20 @@ def gerarMosaicos(retangulos):
     if len(retangulos) > 1: 
         resultado = compararRetangulos(retangulos[0], retangulos[1])
 
-        #Varivel de contagem pro loop
-        count = 0
-        countAnterior = count
+        #Variável de contagem pro loop nos resultados
+        countResultado = 0
+        countResultadoAnterior = 0
 
-        # Faz um loop por todos os retangulos
-        while count < len(retangulos):
+        #Faz um loop por todos os resultados
+        while countResultado < len(resultado):
 
-            #Faz um loop por todos os resultados
-            for res in resultado:
+            #Variável de contagem pro loop nos retangulos
+            countRetangulos = 0
 
-                # print()
-                # print("Count: ", count)
-                # print("Rets: ", retangulos)
-                # print("Resultados: ", resultado)
-                
+            # Faz um loop por todos os retangulos
+            while countRetangulos < len(retangulos):                
                 #Faz a comparacao entre o resultado e o retangulo
-                comparacao = compararRetangulos(res, retangulos[count])
+                comparacao = compararRetangulos(resultado[countResultado], retangulos[countRetangulos])
 
                 # Adiciona os novos resultados
                 for r in comparacao:
@@ -76,25 +73,23 @@ def gerarMosaicos(retangulos):
                         resultado.append(r)
 
                 # Se o retangulo da lista de resultados não estiver na comparacao, remove ele dos retangulos resultantes
-                if res not in comparacao:
-                    resultado.remove(res) 
-
-                # print("retangulo: ", retangulos[count])
-                # print("resultante: ", res)
-                # print("Comparacao: ", comparacao)
-                # print()
-
+                if resultado[countResultado] not in comparacao:
+                    resultado.remove(resultado[countResultado])
+                    # #Pra garantir que só diminui uma vez, para manter a posição na lista
+                    if countResultadoAnterior == countResultado:
+                        countResultado -= 1
+                    
                 # Se o retangulo da lista de retangulos não estiver na comparação, remove ele da lista de retangulos
                 # Os ifs são separados pois não é só porque um não está que o outro está errado, ja que um pode estar dentro do outro
-                if retangulos[count] not in comparacao:
-                    retangulos.remove(retangulos[count])
-
-                    #Pra garantir que só diminui uma vez, para manter a posição na lista
-                    if countAnterior == count:
-                        count -= 1
+                if retangulos[countRetangulos] not in comparacao:
+                    retangulos.remove(retangulos[countRetangulos])
+                    countRetangulos -= 1
                     
-            count += 1
-            countAnterior = count
+                countRetangulos += 1
+
+            countResultado += 1
+            countResultadoAnterior = countResultado
+
 
     else: # Se só tiver um retangulo, não precisa comparar então retorna ele
         resultado = retangulos
@@ -115,12 +110,11 @@ def calcular(caminho):
     return resultadoFinal
 
 def definirEscala(resultados):
-    escala = 1
-    if len(resultados) > 1:
-        maiorLargura = max([(xid - xse) for xse, _, xid, _ in resultados])
-        maiorAltura = max([(yse - yid) for _, yse, _, yid in resultados])
+    maiorLargura = max([(xid - xse) for xse, _, xid, _ in resultados])
+    maiorAltura = max([(yse - yid) for _, yse, _, yid in resultados])
 
-        escala = (720 / max(maiorAltura, maiorLargura)) / 5
+
+    escala = (1080 / maiorLargura + 720 / maiorAltura) / 10
 
     escala = 1 if (escala<1) else escala
 
@@ -129,7 +123,7 @@ def definirEscala(resultados):
     return escala
 
 def desenharResultados(resultados):
-    size = width, height = 1080, 720
+    size = 1080, 720
 
     escala = definirEscala(resultados)
 
@@ -137,12 +131,21 @@ def desenharResultados(resultados):
     screen.fill((255, 255, 255))
 
     for res in resultados:
-        xse, yse, xid, yid = [v*escala for v in res]
+        xse, yse, xid, yid = [v*escala + 5 for v in res]
         largura = xid - xse
         altura = yse - yid
 
         rect = pygame.Rect(xse, yid, largura, altura)
         pygame.draw.rect(screen, (0, 0, 0), rect) 
+
+    for i in range(2, int(1080/(escala*5))):
+        pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(i * escala * 5, 0, 1, 5))
+    
+    for i in range(2, int(720/(escala*5))):
+        pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(0, i * escala * 5, 5, 1))
+
+    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(5, 0, 1, 720))
+    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(0, 5, 1080, 1))
 
     screen.blit(pygame.transform.flip(screen, False, True), dest=(0, 0))
 

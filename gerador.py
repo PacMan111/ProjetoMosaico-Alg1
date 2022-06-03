@@ -48,5 +48,3 @@ while areas_validas < num_areas:
         # de áreas válidas
         print("%i %i %i %i"%(x_se,y_se,x_id,y_id))
         areas_validas += 1
-
-  
