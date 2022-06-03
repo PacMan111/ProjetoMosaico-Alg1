@@ -13,4 +13,5 @@ with open(caminho, 'r') as file:
         xidF = max(xidF, xid)
         yidF = min(yidF, yid)
 
+print(1)
 print(f"({xseF},{yseF}), ({xidF}, {yidF})")
